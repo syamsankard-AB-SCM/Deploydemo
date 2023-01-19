@@ -8,7 +8,7 @@ on:
     types: [closed, assigned, opened, reopened] 
 
 env:
-  REGISTRY: "ghcr.io"
+  REGISTRY: ghrc.io
   IMAGE_NAME: ${{ github.respository }}
   IMAGE_TAG: 1.0.${{ github.run_number }}
 
@@ -46,5 +46,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+        tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
