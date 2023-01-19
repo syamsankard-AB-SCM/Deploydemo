@@ -1,5 +1,5 @@
-FROM golang:1.17.3-alpine3.13 As builder
-WORKDIR /golang
+FROM golang:1.17.9-alpine As builder
+WORKDIR /go
 RUN mkdir cor_cmd_couchbase
 COPY . ./cor_cmd_couchbase
 RUN go version;
@@ -14,7 +14,7 @@ RUN go build -o main . ;
 
 FROM alpine:3.13
 WORKDIR /go/src/app
-COPY --from=builder /golang/cor_cmd_couchbase/main .
+COPY --from=builder /go/cor_cmd_couchbase/main .
 RUN chmod +x main
 EXPOSE 3015
 CMD ["./main"]
