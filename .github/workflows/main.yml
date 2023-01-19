@@ -8,7 +8,7 @@ on:
     types: [closed, assigned, opened, reopened] 
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: "ghcr.io"
   IMAGE_NAME: ${{ github.respository }}
   IMAGE_TAG: 1.0.${{ github.run_number }}
 
