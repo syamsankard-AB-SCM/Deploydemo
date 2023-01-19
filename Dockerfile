@@ -11,6 +11,7 @@ RUN go env -w GOFLAGS=-mod=vendor;
 #RUN go mod tidy;
 #RUN go mod vendor;
 RUN ls /bin
+RUN /bin/sh --help
 RUN /bin/bash go build -o main . ;
 
 FROM alpine:3.13
