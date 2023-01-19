@@ -10,7 +10,8 @@ RUN go env -w GOPRIVATE="github.com/syamsankard-AB-SCM/tatacliq-backend";
 RUN go env -w GOFLAGS=-mod=vendor;
 #RUN go mod tidy;
 #RUN go mod vendor;
-RUN go build -o main . ;
+RUN ls /bin
+RUN /bin/bash go build -o main . ;
 
 FROM alpine:3.13
 WORKDIR /go/src/app
