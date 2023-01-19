@@ -1,9 +1,9 @@
-  FROM registry.access.redhat.com/openshift3/ose-docker-builder:v3.11.705-1.g7a17a5d AS builder
+FROM registry.access.redhat.com/openshift3/ose-docker-builder:v3.11.705-1.g7a17a5d AS builder
 WORKDIR /golang
 RUN mkdir cor_cmd_couchbase
 COPY . ./cor_cmd_couchbase
-RUN curl -fsSLo /tmp/go.tgz https://go.dev/dl/go1.17.7.linux-amd64.tar.gz; \
-  mkdir -p bin; \
+RUN curl -fsSLo /tmp/go.tgz https://go.dev/dl/go1.17.7.linux-amd64.tar.gz;
+mkdir -p bin; \
   tar -C /golang -xzf /tmp/go.tgz; \
   rm /tmp/go.tgz; \
   export PATH="/golang/go/bin:${PATH}"; \
