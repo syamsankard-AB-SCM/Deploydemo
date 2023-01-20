@@ -30,8 +30,6 @@ jobs:
       with:
         go-version: ${{ matrix.go-version }}
 
-    - name: Install dependencies
-      run: go get . 
     
     - name: checkout repository
       uses: actions/checkout@v3
