@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.respository }}
+  IMAGE_NAME: cor_cmd_couchbase
   IMAGE_TAG: 1.0.${{ github.run_number }}
 
 jobs:
@@ -19,16 +19,24 @@ jobs:
      contents: read
      packages: write
      id-token: write
+   strategy:
+      matrix:
+        go-version: [ '1.17' ]
   
    steps:
+    - name: Set up Go 
+      id: go
+      uses: actions/setup-go@v3
+      with:
+        go-version: ${{ matrix.go-version }}
+
+    - name: Install dependencies
+      run: go get . 
+    
     - name: checkout repository
       uses: actions/checkout@v3
       
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.15
-    
+        
    
     - name: Setup Docker buildx
       uses: docker/setup-buildx-action@v1
@@ -44,7 +52,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v1
       with: 
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        images: ${{ env.IMAGE_NAME }}
 
     - name: Build and Push Docker Image 
       id: build-and-push
