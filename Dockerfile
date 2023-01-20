@@ -11,7 +11,7 @@ RUN go env -w GOFLAGS=-mod=vendor;
 #RUN go mod download;
 #RUN go mod tidy;
 #RUN go mod vendor;
-RUN go build -o main . ;
+RUN CGO=ENABLED=0 GOOS=linux go build -o main main.go;
 
 FROM alpine:3.13
 WORKDIR /go/src/app
