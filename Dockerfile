@@ -1,4 +1,4 @@
-FROM golang:1.17.9 As builder
+FROM golang:alpine as builder
 WORKDIR /go
 RUN mkdir cor_cmd_couchbase
 COPY . ./cor_cmd_couchbase
