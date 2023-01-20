@@ -9,8 +9,8 @@ RUN go env -w GO111MODULE=auto;
 #RUN go env -w GOPRIVATE="github.com/syamoliam/tatacliq-backend";
 RUN go env -w GOFLAGS=-mod=vendor;
 #RUN go mod download;
-RUN go mod tidy;
-RUN go mod vendor;
+#RUN go mod tidy;
+#RUN go mod vendor;
 RUN go build -o main . ;
 
 FROM alpine:3.13
