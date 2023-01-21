@@ -1,18 +1,15 @@
-FROM golang:1.10
+FROM golang:1.17-alpine
 
-# Set the Current Working Directory inside the container
-WORKDIR /scm/golang/core_msvc/command/cor_cmd_couchbase/
-# Copy everything from the current directory to the PWD(Present Working Directory) inside the container
-COPY . .
+WORKDIR /app
 
-# Download all the dependencies
-RUN go get -d -v ./...
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
 
-# Install the package
-RUN go install -v ./...
+COPY *.go ./
 
-# This container exposes port 8080 to the outside world
+RUN go build -o /cor_cmd_couchbase
+
 EXPOSE 8080
 
-# Run the executable
-CMD ["cor_cmd_couchbase"]
+CMD [ "/cor_cmd_couchbase" ]
