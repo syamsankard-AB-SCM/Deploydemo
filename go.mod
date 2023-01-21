@@ -1,4 +1,4 @@
-module github.com/tcs-chennai/tatacliq-backend/scm/golang/core_msvc/command/cor_cmd_couchbase
+module github.com/syamsankard-AB-SCM/tatacliq-backend/scm/golang/core_msvc/command/cor_cmd_couchbase
 
 go 1.17
 
@@ -7,8 +7,8 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/spf13/viper v1.12.0
 	github.com/stretchr/testify v1.8.0
-	github.com/tcs-chennai/tatacliq-backend/scm/golang/cliqutil v0.0.0-20220805063750-c941f550a050
-	github.com/tcs-chennai/tatacliq-backend/scm/golang/core_msvc/common/couchbase v0.0.0-20220902062254-78557300b7ac
+	github.com/syamsankard-AB-SCM/tatacliq-backend/scm/golang/cliqutil v0.0.0-20220805063750-c941f550a050
+	github.com/syamsankard-AB-SCM/tatacliq-backend/scm/golang/core_msvc/common/couchbase v0.0.0-20220902062254-78557300b7ac
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.34.0
 	go.opentelemetry.io/otel v1.9.0
 	google.golang.org/grpc v1.49.0
@@ -43,7 +43,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
-	github.com/tcs-chennai/tatacliq-backend/scm/golang/core_msvc/query/cor_qry_couchbase v0.0.0-20220805063750-c941f550a050 // indirect
+	github.com/syamsankard-AB-SCM/tatacliq-backend/scm/golang/core_msvc/query/cor_qry_couchbase v0.0.0-20220805063750-c941f550a050 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/internal/retry v1.9.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.9.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.9.0 // indirect
