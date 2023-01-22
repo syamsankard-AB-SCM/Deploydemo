@@ -36,9 +36,34 @@ jobs:
         find . -name go.mod -execdir sh -c 'go build ./... || touch $ROOT_DIR/build_failed.txt' \; ; \
         test ! -f build_failed.txt
   
-  steps: 
+   Steps: 
     - name: checkout repository
       uses: actions/checkout@v3
+      
+        
+   
+    - name: Setup Docker buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Log into github registry ${{ env.REGISTRY }}
+      uses: docker/login-action@v1
+      with:
+        username: syamoliam
+        password: Syamoliam143$
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+      with:
+        images: syamoliam/githubactions
+      
+    - name: Build and push Docker image
+      uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
       
         
    
