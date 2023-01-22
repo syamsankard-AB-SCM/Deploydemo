@@ -6,9 +6,13 @@ RUN go version
 
 RUN go clean -modcache
 
+RUN go mod download all
+
+RUN go mod tidy -compat=1.17
+
 RUN go mod init
 
-RUN go mod download
+#RUN go mod download
 
 COPY *.go ./
 
