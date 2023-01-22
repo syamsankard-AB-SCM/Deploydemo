@@ -2,14 +2,19 @@ FROM golang:1.17-alpine
 
 WORKDIR /app
 
-#COPY go.mod ./
-#COPY go.sum ./
+RUN go version
+
+RUN go clean -modcache
+
+RUN go mod init
+
 RUN go mod download
 
 COPY *.go ./
 
 RUN go build -o /cor_cmd_couchbase
 
+EXPOSE 9090
 EXPOSE 8080
 
 CMD [ "/cor_cmd_couchbase" ]
