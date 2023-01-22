@@ -1,26 +1,17 @@
-FROM golang:1.17-alpine
+FROM golang:1.17
+
+RUN mkdir -p /app
+
+COPY go.mod go.sum /app/
 
 WORKDIR /app
 
-RUN go version
+RUN go mod download
 
-RUN go clean -modcache
-
-RUN go get golang.org/x/net/html
+COPY . .
 
 RUN go mod tidy -compat=1.17
 
-RUN go mod download all
+RUN go build -o main .
 
-RUN go mod init
-
-#RUN go mod download
-
-COPY *.go ./
-
-RUN go build -o /cor_cmd_couchbase
-
-EXPOSE 9090
-EXPOSE 8080
-
-CMD [ "/cor_cmd_couchbase" ]
+CMD ["./main"]
