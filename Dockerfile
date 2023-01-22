@@ -6,7 +6,7 @@ COPY go.mod /app/
 
 WORKDIR /app
 
-RUN go mod download
+#RUN go mod download
 
 COPY . .
 
