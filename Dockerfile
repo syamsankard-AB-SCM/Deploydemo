@@ -9,7 +9,7 @@ COPY . ./cor_cmd_couchbase
 RUN go version; 
 RUN cd cor_cmd_couchbase; 
 RUN go env -w GO111MODULE=auto;  
-RUN git config --global --add url."https://REIMS-Admin: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@github.com/".insteadOf "https://github.com/"; 
+#RUN git config --global --add url."https://REIMS-Admin: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@github.com/".insteadOf "https://github.com/"; 
 RUN go env -w GOPRIVATE="github.com/syamsankard-AB-SCM/tatacliq-backend";  
 RUN go env -w GOFLAGS=-mod=vendor;  
 RUN go mod tidy;  
