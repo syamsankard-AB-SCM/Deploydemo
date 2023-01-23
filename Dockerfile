@@ -1,17 +1,33 @@
-FROM golang:1.17
+FROM golang:1.17.13 AS builder
 
-RUN mkdir -p /app
+WORKDIR /golang
 
-COPY go.mod /app/
+RUN mkdir cor_cmd_couchbase
 
-WORKDIR /app
+COPY . ./cor_cmd_couchbase
 
-#RUN go mod download
+RUN go version; \
+    cd cor_cmd_couchbase; \
+    go env -w GO111MODULE=auto;  \
+    git config --global --add url."https://REIMS-Admin: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@github.com/".insteadOf "https://github.com/"; \
+    go env -w GOPRIVATE="github.com/tcs-chennai/tatacliq-backend";  \
+    go env -w GOFLAGS=-mod=vendor;  \
+    go mod tidy;  \
+    go mod vendor;  \
+    go build -o main . ;
+    
+FROM ubuntu:latest
 
-COPY . .
+WORKDIR /go/src/app
 
-RUN go mod tidy -compat=1.17
+COPY --from=builder /golang/cor_cmd_couchbase/main .
 
-RUN go build -o main .
+EXPOSE 3015
 
-CMD ["./main"]
+RUN chmod +x main; \
+    ls; \
+    ls -la; \
+    pwd;
+RUN ls -la; \
+    whoami;
+CMD ["/go/src/app/main"]
