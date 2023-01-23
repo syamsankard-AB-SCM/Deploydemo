@@ -20,7 +20,7 @@ jobs:
           go-version: 1.17
 
       - name: Build
-        working-directory: scm/golang/core_msvc/command/cor_cmd_couchbase
+        #working-directory: scm/golang/core_msvc/command/cor_cmd_couchbase
         run: |
           sudo docker system prune -af
           sudo docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} --rm=false --no-cache
