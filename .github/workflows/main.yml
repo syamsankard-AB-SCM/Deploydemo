@@ -1,59 +1,42 @@
-name: Build Image
+name: Go package
 
-on:
-  push:   
-  pull_request:
-    types: [closed, assigned, opened, reopened] 
-
-env:
-  IMAGE_NAME: cor_cmd_couchbase
-  IMAGE_TAG: ${{ github.run_number }}
-
+on: 
+  - workflow_dispatch
+  - push
 jobs:
-  build-push-docker-image:
-   runs-on: ubuntu-latest
-   permissions:
-     contents: read
-     packages: write
-     id-token: write
-   strategy:
-      matrix:
-        go-version: [ '1.17' ]
-       
-   steps: 
-     - name: Set up Go 
-       id: go
-       uses: actions/setup-go@v1
-       with:
-         go-version: ${{ matrix.go-version }}
+  build:
+    env:
+      GITHUB_TOKEN: ${{ secrets.BEAUTE_TOKEN }}
+      IMAGE_NAME: cor_cmd_couchbase
+      IMAGE_TAG: 1.0.${{ github.run_number }}
+    runs-on: env-dev
+    steps:
+      - uses: actions/checkout@v3
 
-    
-    
-   
-     - name: checkout repository
-       uses: actions/checkout@v1
-      
-        
-   
-     - name: Setup Docker buildx
-       uses: docker/setup-buildx-action@v1
-
-     - name: Log into github registry ${{ env.REGISTRY }}
-       uses: docker/login-action@v1
-       with:
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.17
+      - name: Log into Docker
+        uses: docker/login-action@v1
+        with:
          username: syamoliam
          password: Syamoliam143$
-
-     - name: Extract metadata (tags, labels) for Docker
-       id: meta
-       uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-       with:
-         images: syamoliam/githubactions
-      
-     - name: Build and push Docker image
-       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-       with:
-         context: .
-         push: true
-         tags: ${{ steps.meta.outputs.tags }}
-         labels: ${{ steps.meta.outputs.labels }}
+         
+      - name: Build
+        working-directory: scm/golang/core_msvc/command/cor_cmd_couchbase
+        run: |
+          sudo docker system prune -af
+          sudo docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} --rm=false --no-cache
+          sudo docker run -d --name ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }} -p 3015:3015 ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          sudo docker ps -a
+          sudo docker inspect ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}
+          sudo docker logs -f ${{ env.IMAGE_NAME }}-${{ env.IMAGE_TAG }}
+          
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          labels: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_labels }}
