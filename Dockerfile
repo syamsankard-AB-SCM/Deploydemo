@@ -6,15 +6,15 @@ RUN mkdir cor_cmd_couchbase
 
 COPY . ./cor_cmd_couchbase
 
-RUN go version; \
-    cd cor_cmd_couchbase; \
-    go env -w GO111MODULE=auto;  \
-    git config --global --add url."https://REIMS-Admin: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@github.com/".insteadOf "https://github.com/"; \
-    go env -w GOPRIVATE="github.com/syamsankard-AB-SCM/tatacliq-backend";  \
-    go env -w GOFLAGS=-mod=vendor;  \
-    go mod tidy;  \
-    go mod vendor;  \
-    go build -o main . ;
+RUN go version; 
+RUN cd cor_cmd_couchbase; 
+RUN go env -w GO111MODULE=auto;  
+RUN git config --global --add url."https://REIMS-Admin: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@github.com/".insteadOf "https://github.com/"; 
+RUN go env -w GOPRIVATE="github.com/syamsankard-AB-SCM/tatacliq-backend";  
+RUN go env -w GOFLAGS=-mod=vendor;  
+RUN go mod tidy;  
+RUN go mod vendor;  
+RUN go build -o main . ;
     
 FROM ubuntu:latest
 
