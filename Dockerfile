@@ -1,4 +1,4 @@
-FROM golang:1.17.13 AS builder
+FROM golang:1.17.7 AS builder
 
 WORKDIR /golang
 
@@ -22,12 +22,8 @@ WORKDIR /go/src/app
 
 COPY --from=builder /golang/cor_cmd_couchbase/main .
 
+RUN chmod +x main
+
 EXPOSE 3015
 
-RUN chmod +x main; \
-    ls; \
-    ls -la; \
-    pwd;
-RUN ls -la; \
-    whoami;
-CMD ["/go/src/app/main"]
+CMD ["./main"]
