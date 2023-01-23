@@ -6,7 +6,6 @@ on:
 jobs:
   build:
     env:
-      GITHUB_TOKEN: ${{ secrets.BEAUTE_TOKEN }}
       IMAGE_NAME: cor_cmd_couchbase
       IMAGE_TAG: 1.0.${{ github.run_number }}
     runs-on: ubuntu-latest
@@ -24,7 +23,7 @@ jobs:
          password: Syamoliam143$
          
       - name: Build
-        working-directory: scm/golang/core_msvc/command/cor_cmd_couchbase
+        #working-directory: scm/golang/core_msvc/command/cor_cmd_couchbase
         run: |
           sudo docker system prune -af
           sudo docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} --rm=false --no-cache
