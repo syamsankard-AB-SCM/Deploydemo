@@ -9,7 +9,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.BEAUTE_TOKEN }}
       IMAGE_NAME: cor_cmd_couchbase
       IMAGE_TAG: 1.0.${{ github.run_number }}
-    runs-on: env-dev
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
